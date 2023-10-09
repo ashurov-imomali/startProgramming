@@ -1,0 +1,19 @@
+1) registration
+2) login
+3) /tables (get) <- свободные столики
+4) /tables/reservition (patch) <- cтол закрыть
+5) /tables/unreservition (patch) <- стол свободный
+6) /tables/(post)   /// manager
+7) /tables/(delete) /// manager
+8) /categories/ get ===============================ok
+9) /menu q = DishesName (get)
+10) menu(post) ///manager
+11) menu(patch) ///manager
+12) orders (post)
+13) orders q=zone get=====================================x
+14) check q= order_id
+15) items (get)
+16) items (patch)
+
+
+

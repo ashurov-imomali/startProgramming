@@ -1,0 +1,180 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ILF",
+    "description": "For Coffee",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8888",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/roles": {
+      "get": {
+        "summary": "Get active roles",
+        "description": "Return actually roles",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.Role"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server Error"
+          }
+        }
+      }
+    },
+    "/registration": {
+      "post": {
+          "summary": "Registration new User",
+          "description": "Add new User to system",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "format": "json",
+            "description": "request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.Employer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.Login"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+            "$ref": "#/definitions/models.Token"
+          },
+          "400": {
+            "description": "BadRequest"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "models.Role":{
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "models.Employer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "role_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "fines": {
+          "type": "number"
+        },
+        "allowance": {
+          "type": "number"
+        },
+        "salary" : {
+          "type": "number"
+        },
+        "total_salary": {
+          "type": "number"
+        },
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "models.Login": {
+      "type": "object",
+      "properties": {
+        "login":{
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "models.Token": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "token": {
+          "type": "string"
+        },
+        "expiration_time": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "ApiKeyAuth":{
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
